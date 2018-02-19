@@ -1,5 +1,5 @@
 module.exports = {
-    database: 'mongodb+srv://pronoadmin:pronopassynov@pronofoot-raenv.mongodb.net/pronofoot',
+    database: 'mongodb://pronoadmin:pronopassynov@pronofoot-shard-00-00-raenv.mongodb.net:27017,pronofoot-shard-00-01-raenv.mongodb.net:27017,pronofoot-shard-00-02-raenv.mongodb.net:27017/pronofoot?ssl=true&replicaSet=pronofoot-shard-0&authSource=admin',
     secret: 'secret'
 }
 

@@ -7,7 +7,6 @@ var UserSchema = mongoose.Schema({
     nom:       { type: String, required: true },
     prenom:    { type: String, required: true },
     email:     { type: String, required: true },
-    username:  { type: String, required: true },
     password:  { type: String, required: true }
 });
 
@@ -43,6 +42,6 @@ UserSchema.methods.comparePassword = function(pw, cb) {
     });
 };
 
-var User = mongoose.model('User', UserSchema);
+var User = mongoose.model('utilisateurs', UserSchema);
 
 module.exports = User;

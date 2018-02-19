@@ -11,7 +11,10 @@ var expressJWT          = require('express-jwt');
 var cors                = require('cors');
 
 
-mongoose.connect(config.database);
+mongoose.connect(config.database, function(error) {
+    console.log(error);
+  });
+
 var db                  = mongoose.connection;
 var MongoStore = require('connect-mongo');
 
@@ -43,7 +46,9 @@ app.use(passport.initialize());                     // initialise passport for u
 app.use(cors());
 
 /*------------Declaration Routes Avec Path definit une fois-------------------*/
-app.use('/',   require('./routes/userRoutes'));
+
+app.use('/auth/',   require('./routes/authRoutes'));
+app.use('/utilisateurs/',   require('./routes/utilisateursRoutes'));
 
 
 // Pour charger toutes les 'vues.pug' dans le dossier 'views'
