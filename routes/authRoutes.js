@@ -17,8 +17,8 @@ router.get('/loggedin', passport.authenticate('jwt', { session: false }), functi
 // Création du compte Utilisateur
 router.post('/register', function(req, res) {
 
-    if(!req.body.email || !req.body.password) {
-        res.status(400).send({ success: false, message: 'Please enter email and password.' });
+    if(!req.body.email || !req.body.password || !req.body.email.endsWith("@ynov.com")) {
+        res.status(400).send({ success: false, message: 'Please enter a valid email and password.' });
     } else {
         var newUser = new User();
         newUser.nom = req.body.nom;
