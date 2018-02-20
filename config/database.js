@@ -1,8 +1,11 @@
 module.exports = {
-    database: 'mongodb://pronoadmin:pronopassynov@pronofoot-shard-00-00-raenv.mongodb.net:27017,pronofoot-shard-00-01-raenv.mongodb.net:27017,pronofoot-shard-00-02-raenv.mongodb.net:27017/pronofoot?ssl=true&replicaSet=pronofoot-shard-0&authSource=admin',
+    database: 'mongodb://pronoadmin:pronopassynov@pronofoot-shard-00-00-raenv.mongodb.net:27017,pronofoot-shard-00-01-raenv.mongodb.net:27017,pronofoot-shard-00-02-raenv.mongodb.net:27017/admin?replicaSet=pronofoot-shard-0&ssl=true',
     secret: 'secret'
 }
 
+
+//database: 'mongodb://localhost:27017/foot',
+//mongodb://localhost:27017/foot
 //MONGODB COMPASS connection string : 
 //mongodb://pronoadmin:pronopassynov@pronofoot-shard-00-00-raenv.mongodb.net:27017,pronofoot-shard-00-01-raenv.mongodb.net:27017,pronofoot-shard-00-02-raenv.mongodb.net:27017/admin?replicaSet=pronofoot-shard-0&ssl=true
 

@@ -27,6 +27,7 @@ var app = express();
 
 // Declaration Models
 var User     = require('./models/user');
+var Equipe     = require('./models/equipe');
 
 app.use(function(request, response, next) {
     response.header("Access-Control-Allow-Origin", "*");
@@ -49,6 +50,7 @@ app.use(cors());
 
 app.use('/auth/',   require('./routes/authRoutes'));
 app.use('/utilisateurs/',   require('./routes/utilisateursRoutes'));
+app.use('/equipes/',   require('./routes/equipesRoutes'));
 
 
 // Pour charger toutes les 'vues.pug' dans le dossier 'views'

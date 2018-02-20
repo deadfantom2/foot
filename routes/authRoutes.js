@@ -3,6 +3,15 @@ var router      = express.Router();             // var global route
 var jwt         = require('jsonwebtoken');
 var passport    = require('passport');
 
+
+const bluebird      = require('bluebird');
+const crypto        = bluebird.promisifyAll(require('crypto'));
+const nodemailer    = require('nodemailer');
+var multer          = require('multer');
+var fs              = require('fs');
+const path          = require('path');
+
+
 var config      = require('../config/database');
 var User        = require('../models/user');    // import data models user
 
@@ -94,5 +103,9 @@ router.get('/logout', function(req, res){
     req.logOut();
     res.status(200).send({ success: true});
 });
+
+
+
+
 
 module.exports = router;  // import routes CRUD into a another file
