@@ -11,10 +11,8 @@ var Equipe        = require('../models/equipe');    // import data models user
 router.post('/create',  function(req, res) {
 
         var newEquipe = new Equipe();
-            newEquipe.nomEquipe = req.body.nomEquipe;
-            newEquipe.photo     = req.body.photo;
-
-        console.log(newEquipe);
+            newEquipe.nom = req.body.nom;
+            newEquipe.drapeau     = req.body.drapeau;
 
         newEquipe.save(function(err) {
             if (err) {
@@ -22,7 +20,6 @@ router.post('/create',  function(req, res) {
                 res.status(400).send({ success: false, message: 'Error'});
             }
             else{
-                console.log("no err");
                 res.status(200).send({ success: true, message: 'Equipe created!' });
             }
         });

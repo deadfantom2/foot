@@ -1,10 +1,10 @@
 var mongoose    = require('mongoose');
 var Schema      = mongoose.Schema;
 
-// user Schema
+// Equipe Schema
 var EquipeSchema = mongoose.Schema({
-    nomEquipe:       { type: String, required: true },
-    photo:    { type: String, required: true }
+    nom:       { type: String, required: true },
+    drapeau:    { type: String, required: true }
 });
 
 

@@ -25,49 +25,21 @@ router.get('/loggedin', passport.authenticate('jwt', { session: false }), functi
 
 // Création du compte Utilisateur
 router.post('/register', function(req, res) {
-
-    if(!req.body.email || !req.body.password || !req.body.email.endsWith("@ynov.com")) {
-        res.status(400).send({ success: false, message: 'Please enter a valid email and password.' });
-    } else {
         var newUser = new User();
         newUser.nom = req.body.nom;
         newUser.prenom = req.body.prenom;
         newUser.email = req.body.email;
         newUser.password = req.body.password;
 
-        console.log(newUser);
-        // Attempt to save the user
-        // newUser.save();
-
-        // newUser.save(function(err){
-        //     console.log('test');
-        // });
-        User.findOne({ email: req.body.email }, function(err, existUser) {
-            if(err){
+        newUser.save(function(err) {
+            if (err) {
                 console.log("err" + JSON.stringify(err));
                 res.status(400).send({ success: false, message: 'Error'});
             }
-            else if(existUser){
-                res.status(400).send({ success: false, message: 'Email already exist!'});
-            }
             else{
-                newUser.save(function(err) {
-                    console.log("enter");
-                    if (err) {
-                        console.log("err" + JSON.stringify(err));
-                        res.status(400).send({ success: false, message: 'Error'});
-                    }
-                    else{
-                        console.log("no err");
-                        res.status(200).send({ success: true, message: 'User created!' });
-                    }
-                });
+                res.status(200).send({ success: true, message: 'User created!' });
             }
         });
-        
-
-        //res.status(200).send({ success: true, message: 'User created!' });
-    }
 });
 
 

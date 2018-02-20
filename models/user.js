@@ -6,7 +6,7 @@ var bcrypt      = require('bcrypt');
 var UserSchema = mongoose.Schema({
     nom:       { type: String, required: true },
     prenom:    { type: String, required: true },
-    email:     { type: String, required: true, unique: true  },
+    email:     { type: String, required: true, index: { unique: true }, validate: { validator: function(mail) {return /^[a-zA-Z0-9.!#$%&’*+\/=?^_`{|}~-]+@ynov\.com$/.test(mail)} }  },
     password:  { type: String, required: true }
 });
 
