@@ -3,7 +3,7 @@ var Schema      = mongoose.Schema;
 
 // Equipe Schema
 var EquipeSchema = mongoose.Schema({
-    nom:       { type: String, required: true },
+    nom:       { type: String, required: true, index: { unique: true } },
     drapeau:    { type: String, required: true }
 });
 
