@@ -5,7 +5,7 @@ var Schema      = mongoose.Schema;
 var ResultatSchema = mongoose.Schema({
     equipeUserGoal1:       { type: String, required: true },
     equipeUserGoal2:    { type: String, required: true },
-    matchId : {type : String}
+    match_id : { type: Schema.Types.ObjectId, ref: 'matchs'}
 });
 
 
