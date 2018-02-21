@@ -3,8 +3,9 @@ var Schema      = mongoose.Schema;
 
 // user Schema
 var ResultatSchema = mongoose.Schema({
-    adefinir:       { type: String, required: true },
-    adefinir:    { type: String, required: true }
+    equipeUserGoal1:       { type: String, required: true },
+    equipeUserGoal2:    { type: String, required: true },
+    matchId : {type : String}
 });
 
 
