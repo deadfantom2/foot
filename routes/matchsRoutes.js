@@ -4,9 +4,9 @@ var jwt         = require('jsonwebtoken');
 var passport    = require('passport');
 
 var config      = require('../config/database');
-var Match        = require('../models/match');    // import data models user
-
-
+var Match        = require('../models/match');    // import data models match
+var User        = require('../models/user');    // import data models user
+var Prono        = require('../models/prono');    // import data models prono
 
 /* GET listing matchs swith params */
 router.get('/', function(req, res, next) {
@@ -48,7 +48,18 @@ router.patch('/:_id', function(req, res, next) {
       if (err)
         res.status(400).send(err);
       else
-        res.send(data);
+      {
+        User.findOne({prenom : 'Bachir'}).exec(function(err,user){
+          if (err)
+              res.status(404).send(err);
+          else
+          {
+            res.send(user.syncPoints());
+          }
+              //res.send(matchs);
+      });
+        //res.send(data);
+      }
     });
   });
   

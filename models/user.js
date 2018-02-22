@@ -1,13 +1,15 @@
 var mongoose    = require('mongoose');
 var Schema      = mongoose.Schema;
 var bcrypt      = require('bcrypt');
+var Prono       = require('./prono');
 
 // user Schema
 var UserSchema = mongoose.Schema({
     nom:       { type: String, required: true },
     prenom:    { type: String, required: true },
     email:     { type: String, required: true, index: { unique: true }, validate: { validator: function(mail) {return /^[a-zA-Z0-9.!#$%&’*+\/=?^_`{|}~-]+@ynov\.com$/.test(mail)} }  },
-    password:  { type: String, required: true }
+    password:  { type: String, required: true },
+    points:    { type: Number, default: 0 }
 });
 
 
@@ -39,6 +41,23 @@ UserSchema.methods.comparePassword = function(pw, cb) {
             return cb(err);
         }
         cb(null, isMatch);
+    });
+};
+
+UserSchema.methods.syncPoints = function(_id) {
+    Prono.aggregate().match({ utilisateur_id : this._id }).project(
+        {
+              utilisateur_id: '$utilisateur_id',
+              points: { $sum: "$points" }
+        }
+    ).exec(function (err, result) {
+        if (err) {
+            next(err);
+        } else {
+            console.log(result);
+            return result;
+            //AJOUTER DES PRONOS AVEC L'utilisateur bachir.biaich@ynov.com
+        }
     });
 };
 

@@ -28,8 +28,8 @@ var app = express();
 // Declaration Models
 var User        = require('./models/user');
 var Equipe      = require('./models/equipe');
-var Resultat    = require('./models/resultat');
 var Match       = require('./models/match');
+var Prono       = require('./models/prono');
 
 app.use(function(request, response, next) {
     response.header("Access-Control-Allow-Origin", "*");
@@ -53,9 +53,8 @@ app.use(cors());
 app.use('/auth/',   require('./routes/authRoutes'));
 app.use('/utilisateurs/',   require('./routes/utilisateursRoutes'));
 app.use('/equipes/',   require('./routes/equipesRoutes'));
-app.use('/resultats/',   require('./routes/resultatsRoutes'));
 app.use('/matchs/',   require('./routes/matchsRoutes'));
-
+app.use('/pronos/',   require('./routes/pronosRoutes'));
 
 // Pour charger toutes les 'vues.pug' dans le dossier 'views'
 app.set('views',path.join(__dirname, 'public'));
