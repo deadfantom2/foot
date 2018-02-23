@@ -6,11 +6,6 @@ var passport    = require('passport');
 
 const bluebird      = require('bluebird');
 const crypto        = bluebird.promisifyAll(require('crypto'));
-const nodemailer    = require('nodemailer');
-var multer          = require('multer');
-var fs              = require('fs');
-const path          = require('path');
-
 
 var config      = require('../config/database');
 var User        = require('../models/user');    // import data models user
@@ -25,21 +20,21 @@ router.get('/loggedin', passport.authenticate('jwt', { session: false }), functi
 
 // Création du compte Utilisateur
 router.post('/register', function(req, res) {
-        var newUser = new User();
-        newUser.nom = req.body.nom;
-        newUser.prenom = req.body.prenom;
-        newUser.email = req.body.email;
-        newUser.password = req.body.password;
+    var newUser = new User();
+    newUser.nom = req.body.nom;
+    newUser.prenom = req.body.prenom;
+    newUser.email = req.body.email;
+    newUser.password = req.body.password;
 
-        newUser.save(function(err) {
-            if (err) {
-                console.log("err" + JSON.stringify(err));
-                res.status(400).send({ success: false, message: 'Error'});
-            }
-            else{
-                res.status(200).send({ success: true, message: 'User created!' });
-            }
-        });
+    newUser.save(function(err) {
+        if (err) {
+            console.log("err" + JSON.stringify(err));
+            res.status(400).send({ success: false, message: 'Error'});
+        }
+        else{
+            res.status(200).send({ success: true, message: 'User created!' });
+        }
+    });
 });
 
 

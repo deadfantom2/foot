@@ -8,7 +8,7 @@ var PronoSchema = mongoose.Schema({
     goals1:         { type: Number, required: true },
     goals2:         { type: Number, required: true },
     points:          { type: Number, default: 0 },
-    date:           { type: Date, required: true },
+    date:           { type: Date, required: true }
 });
 
 

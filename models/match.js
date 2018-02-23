@@ -8,7 +8,7 @@ var MatchSchema = mongoose.Schema({
     equipe2_id:     { type: Schema.Types.ObjectId, ref: 'equipes', required: true },
     goals1:         { type: Number },
     goals2:         { type: Number },
-    date:           { type: Date, required: true },
+    date:           { type: Date, required: true }
 });
 
 
