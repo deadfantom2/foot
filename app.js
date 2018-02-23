@@ -30,6 +30,7 @@ var User        = require('./models/user');
 var Equipe      = require('./models/equipe');
 var Match       = require('./models/match');
 var Prono       = require('./models/prono');
+var Buteur       = require('./models/buteur');
 
 app.use(function(request, response, next) {
     response.header("Access-Control-Allow-Origin", "*");
@@ -55,6 +56,7 @@ app.use('/utilisateurs/',   require('./routes/utilisateursRoutes'));
 app.use('/equipes/',   require('./routes/equipesRoutes'));
 app.use('/matchs/',   require('./routes/matchsRoutes'));
 app.use('/pronos/',   require('./routes/pronosRoutes'));
+app.use('/buteurs/',   require('./routes/buteurRoutes'));
 
 // Pour charger toutes les 'vues.pug' dans le dossier 'views'
 app.set('views',path.join(__dirname, 'public'));
