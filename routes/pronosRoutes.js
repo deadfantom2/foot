@@ -62,19 +62,5 @@ router.delete('/:_id', function(req, res, next) {
     });
 });
 
-//____________CALCUL DES PRONOS_____________________
-/* GET prono state by id */
-/*router.get('/:_id/state', function(req, res, next) {
-    Prono.findOne({_id: req.params._id}).populate('match_id').populate('utilisateur_id').exec(function(err,prono){
-        if (err)
-            res.status(404).send(err);
-        else
-        {
-            //res.send(pronos);
-            //6 points prono parfait, 
-        }
-    });
-  });*/
-
 module.exports = router;  // import routes CRUD into a another file
 

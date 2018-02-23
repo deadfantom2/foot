@@ -4,8 +4,9 @@ var jwt         = require('jsonwebtoken');
 var passport    = require('passport');
 
 var config      = require('../config/database');
-var Match        = require('../models/match');    // import data models user
-
+var Match        = require('../models/match');    // import data models match
+var User        = require('../models/user');    // import data models user
+var Prono        = require('../models/prono');    // import data models prono
 
 
 /* GET listing matchs swith params */
@@ -44,13 +45,47 @@ router.post('/', function(req, res, next) {
   
 /* PATCH match by id */
 router.patch('/:_id', function(req, res, next) {
-    Match.update({_id: req.params._id},req.body,{multi: false},function(err,data){
-      if (err)
-        res.status(400).send(err);
-      else
-        res.send(data);
-    });
+  Match.update({_id: req.params._id},req.body,{multi: false},function(err,data){
+    if (err)
+      res.status(400).send(err);
+    else
+    {
+      //1) MAJ des points pour chaque prono du match
+      Prono.find({match_id: req.params._id}).populate('match_id').populate('utilisateur_id').exec(function(err,pronos){
+        if (err)
+            res.status(404).send(err);
+        else
+        {
+          pronos.forEach(prono => {
+            let points = 0;
+            //RULES
+            if(prono.goals1 == prono.match_id.goals1 && prono.goals2 == prono.match_id.goals2) points = 6; //score parfait
+            else if((prono.goals1 > prono.goals2 && prono.match_id.goals1 > prono.match_id.goals2) || (prono.goals2 > prono.goals1 && prono.match_id.goals2 > prono.match_id.goals1)) points = 3; //vainqueur trouvé
+            else if(prono.goals1 == prono.goals2 && prono.match_id.goals1 == prono.match_id.goals2) points = 3; //nul mais pas le bon score
+            
+            prono.points = points;
+            prono.save(function(err) {
+              if (err) 
+                res.status(400).send(err);
+            });
+          });
+          //2) MAJ des points pour tous les utilisateurs
+          User.find().exec(function(err,users){
+            if (err)
+                res.status(404).send(err);
+            else
+            {
+              users.forEach(user => {
+                user.syncPoints();
+              });
+              res.send("ok");
+            }
+          });
+        }
+      });
+    }
   });
+});
   
 /* DELETE match by id */
 router.delete('/:_id', function(req, res, next) {

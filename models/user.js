@@ -46,19 +46,39 @@ UserSchema.methods.comparePassword = function(pw, cb) {
     });
 };
 
-UserSchema.methods.syncPoints = function(_id) {
-    Prono.aggregate().match({ utilisateur_id : this._id }).project(
+UserSchema.methods.syncPoints = function() {
+    let _id = this._id;
+    Prono.aggregate(
+        { 
+            $match: {
+                utilisateur_id : this._id
+            }
+        },
+        { 
+            $project: {
+                utilisateur_id: '$utilisateur_id',
+                points: { $sum: "$points" }
+            }
+        },
         {
-              utilisateur_id: '$utilisateur_id',
-              points: { $sum: "$points" }
+            $group: {
+                _id: "$utilisateur_id",
+                points: { $sum: "$points" }
+            }
         }
-    ).exec(function (err, result) {
+    )
+    .exec(function (err, result) {
         if (err) {
-            next(err);
+            return false;
         } else {
-            console.log(result);
-            return result;
-            //AJOUTER DES PRONOS AVEC L'utilisateur bachir.biaich@ynov.com
+            if(result.length == 0)
+                result[0] = { _id: _id, points: 0 };
+            User.update({_id: result[0]._id},{ points: result[0].points },{multi: false},function(err,data){
+                if (err)
+                    return false;
+                else
+                  return true;
+              });
         }
     });
 };

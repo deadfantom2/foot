@@ -3,8 +3,8 @@ var Schema      = mongoose.Schema;
 
 // Prono Schema
 var PronoSchema = mongoose.Schema({
-    match_id : { type: Schema.Types.ObjectId, ref: 'matchs'},
-    utilisateur_id : { type: Schema.Types.ObjectId, ref: 'utilisateurs'},
+    match_id : { type: Schema.Types.ObjectId, ref: 'matchs', required: true },
+    utilisateur_id : { type: Schema.Types.ObjectId, ref: 'utilisateurs', required: true },
     goals1:         { type: Number, required: true },
     goals2:         { type: Number, required: true },
     points:          { type: Number, default: 0 },
