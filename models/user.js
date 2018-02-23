@@ -9,7 +9,9 @@ var UserSchema = mongoose.Schema({
     prenom:    { type: String, required: true },
     email:     { type: String, required: true, index: { unique: true }, validate: { validator: function(mail) {return /^[a-zA-Z0-9.!#$%&’*+\/=?^_`{|}~-]+@ynov\.com$/.test(mail)} }  },
     password:  { type: String, required: true },
-    points:    { type: Number, default: 0 }
+    points:    { type: Number, default: 0 },
+    choix_equipe_id : { type: Schema.Types.ObjectId, ref: 'equipes'},
+    choix_buteur_id : { type: Schema.Types.ObjectId, ref: 'buteurs'}
 });
 
 
