@@ -51,7 +51,7 @@ router.patch('/:_id', function(req, res, next) {
     else
     {
       //1) MAJ des points pour chaque prono du match
-      if(data.goals1 != "" && data.goals2 != "" && data.goals1 != null && data.goals2 != null)
+      if(data.goals1 != "" && data.goals2 != "")
       {
         Prono.find({match_id: req.params._id}).populate('match_id').populate('utilisateur_id').exec(function(err,pronos){
           if (err)
