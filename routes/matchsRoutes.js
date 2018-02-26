@@ -8,26 +8,41 @@ var Match        = require('../models/match');    // import data models match
 var User        = require('../models/user');    // import data models user
 var Prono        = require('../models/prono');    // import data models prono
 
+var response = { hasErrors: false, data: {}, message: ""};
 
 /* GET listing matchs swith params */
 router.get('/', function(req, res, next) {
 
     Match.find(req.query).populate('equipe1_id').populate('equipe2_id').exec(function(err,matchs){
         if (err)
-            res.status(404).send(err);
+        {
+          response.hasErrors = true;
+          response.message = err; 
+          res.status(404).send(response);
+        }
         else
-            res.send(matchs);
+        {
+          response.data = matchs;
+          res.send(response);
+        }
     });
   });
 
 
 /* GET match by id */
 router.get('/:_id', function(req, res, next) {
-    Match.find({_id: req.params._id},'',function(err,matchs){
+    Match.findOne({_id: req.params._id},'',function(err,match){
       if (err)
-        res.status(404).send(err);
+      {
+        response.hasErrors = true;
+        response.message = err; 
+        res.status(404).send(response);
+      }
       else
-        res.send(matchs[0]);
+      {
+        response.data = match;
+        res.send(response);
+      }
     });
   });
   
@@ -36,10 +51,17 @@ router.post('/', function(req, res, next) {
     var newMatch = new Match(req.body);
     newMatch.save(function(err,data){
       if (err)
-        res.status(400).send(err);
+      {
+        response.hasErrors = true;
+        response.message = err; 
+        res.status(400).send(response);
+      }
       else
+      {
+        response.data = data;
         res.location(`/matchs/${data._id}`);
-        res.status(201).send(data);
+        res.status(201).send(response);
+      }
     });
   });
   
@@ -47,7 +69,11 @@ router.post('/', function(req, res, next) {
 router.patch('/:_id', function(req, res, next) {
   Match.update({_id: req.params._id},req.body,{multi: false},function(err,data){
     if (err)
-      res.status(400).send(err);
+    {
+      response.hasErrors = true;
+      response.message = err; 
+      res.status(404).send(response);
+    }
     else
     {
       //1) MAJ des points pour chaque prono du match
@@ -55,7 +81,11 @@ router.patch('/:_id', function(req, res, next) {
       {
         Prono.find({match_id: req.params._id}).populate('match_id').populate('utilisateur_id').exec(function(err,pronos){
           if (err)
-              res.status(404).send(err);
+          {
+            response.hasErrors = true;
+            response.message = err; 
+            res.status(400).send(response);
+          }
           else
           {
             pronos.forEach(prono => {
@@ -68,24 +98,38 @@ router.patch('/:_id', function(req, res, next) {
               prono.points = points;
               prono.save(function(err) {
                 if (err) 
-                  res.status(400).send(err);
+                {
+                  response.hasErrors = true;
+                  response.message = err; 
+                  res.status(400).send(response);
+                }
               });
             });
             //2) MAJ des points pour tous les utilisateurs
             User.find().exec(function(err,users){
               if (err)
-                  res.status(404).send(err);
+              {
+                response.hasErrors = true;
+                response.message = err; 
+                res.status(400).send(response);
+              }
               else
               {
                 users.forEach(user => {
-                  user.syncPoints();
+                  if(!user.syncPoints())
+                  {
+                    response.hasErrors = true;
+                    response.message = "Synchro des points utlisateurs échouée"; 
+                    res.status(400).send(response);
+                  }
                 });
               }
             });
           }
         });
       }
-      res.send(data);
+      response.data = data;
+      res.send(response);
     }
   });
 });
@@ -94,9 +138,13 @@ router.patch('/:_id', function(req, res, next) {
 router.delete('/:_id', function(req, res, next) {
     Match.remove({_id: req.params._id},function(err){
       if (err)
-        res.status(404).send(err);
+      {
+        response.hasErrors = true;
+        response.message = err; 
+        res.status(404).send(response);
+      }
       else
-        res.status(204).send();
+        res.status(204).send(response);
     });
 });
 

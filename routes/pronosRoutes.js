@@ -8,14 +8,23 @@ var Prono        = require('../models/prono');    // import data models prono
 var Match        = require('../models/match');    // import data models match
 
 
+var response = { hasErrors: false, data: {}, message: ""};
+
 /* GET listing pronos swith params */
 router.get('/', function(req, res, next) {
 
     Prono.find(req.query).populate('match_id').populate('utilisateur_id').exec(function(err,pronos){
         if (err)
-            res.status(404).send(err);
+        {
+          response.hasErrors = true;
+          response.message = err; 
+          res.status(404).send(response);
+        }
         else
-            res.send(pronos);
+        {
+          response.data = pronos;
+          res.send(response);
+        }
     });
   });
 
@@ -24,9 +33,16 @@ router.get('/', function(req, res, next) {
 router.get('/:_id', function(req, res, next) {
     Prono.findOne({_id: req.params._id},'',function(err,prono){
       if (err)
-        res.status(404).send(err);
+      {
+        response.hasErrors = true;
+        response.message = err; 
+        res.status(404).send(response);
+      }
       else
-        res.send(prono);
+      {
+        response.data = prono;
+        res.send(response);
+      }
     });
   });
   
@@ -35,10 +51,17 @@ router.post('/', function(req, res, next) {
     var newProno = new Prono(req.body);
     newProno.save(function(err,data){
       if (err)
-        res.status(400).send(err);
+      {
+        response.hasErrors = true;
+        response.message = err; 
+        res.status(400).send(response);
+      }
       else
+      {
+        response.data = data;
         res.location(`/pronos/${data._id}`);
-        res.status(201).send(data);
+        res.status(201).send(response);
+      }
     });
   });
   
@@ -46,9 +69,16 @@ router.post('/', function(req, res, next) {
 router.patch('/:_id', function(req, res, next) {
     Prono.update({_id: req.params._id},req.body,{multi: false},function(err,data){
       if (err)
-        res.status(400).send(err);
+      {
+        response.hasErrors = true;
+        response.message = err; 
+        res.status(404).send(response);
+      }
       else
-        res.send(data);
+      {
+        response.data = data;
+        res.send(response);
+      }
     });
   });
   
@@ -56,11 +86,14 @@ router.patch('/:_id', function(req, res, next) {
 router.delete('/:_id', function(req, res, next) {
     Prono.remove({_id: req.params._id},function(err){
       if (err)
-        res.status(404).send(err);
+      {
+        response.hasErrors = true;
+        response.message = err; 
+        res.status(404).send(response);
+      }
       else
-        res.status(204).send();
+        res.status(204).send(response);
     });
 });
 
 module.exports = router;  // import routes CRUD into a another file
-

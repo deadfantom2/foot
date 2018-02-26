@@ -10,10 +10,12 @@ const crypto        = bluebird.promisifyAll(require('crypto'));
 var config      = require('../config/database');
 var User        = require('../models/user');    // import data models user
 
+var response = { hasErrors: false, data: {}, message: ""};
 
 //test route
 router.get('/loggedin', passport.authenticate('jwt', { session: false }), function(req, res) {
-    res.send('It worked! User id is: ' + req.user._id + '.' + req.user.email);
+    response.message = 'It worked! User id is: ' + req.user._id + '.' + req.user.email;
+    res.send(response);
 });
 
 
@@ -26,13 +28,17 @@ router.post('/register', function(req, res) {
     newUser.email = req.body.email;
     newUser.password = req.body.password;
 
-    newUser.save(function(err) {
+    newUser.save(function(err, data) {
         if (err) {
             console.log("err" + JSON.stringify(err));
-            res.status(400).send({ success: false, message: 'Error'});
+            response.hasErrors = true;
+            response.message = err; 
+            res.status(400).send(response);
         }
         else{
-            res.status(200).send({ success: true, message: 'User created!' });
+            response.data = data;
+            response.message = "User created!";
+            res.status(201).send(response);
         }
     });
 });
@@ -44,19 +50,21 @@ router.post('/login', function(req, res) {
         if (err) throw err;
 
         if (!user) {
-            res.send({ success: false, message: 'Authentication failed. User not found.' });
+            response.hasErrors = true;
+            response.message = 'Authentication failed. User not found.'; 
+            res.status(404).send(response);
         } else {
             // Check if password matches
             user.comparePassword(req.body.password, function(err, isMatch) {
                 if (isMatch && !err) {
                     // Create token if the password matched and no error was thrown
                     var token = jwt.sign(user, config.secret, {expiresIn: 9000 }); // 15 minutes
-
-                    console.log("ici");
-                    res.json({ success: true, token: 'JWT ' + token });
-
+                    response.data.token = 'JWT ' + token;
+                    res.json(response);
                 } else {
-                    res.send({ success: false, message: 'Authentication failed. Passwords did not match.' });
+                    response.hasErrors = true;
+                    response.message = 'Authentication failed. Passwords did not match.'; 
+                    res.status(400).send(response);
                 }
 
             });
@@ -68,7 +76,7 @@ router.post('/login', function(req, res) {
 // log out
 router.get('/logout', function(req, res){
     req.logOut();
-    res.status(200).send({ success: true});
+    res.status(200).send(response);
 });
 
 

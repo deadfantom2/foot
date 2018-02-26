@@ -7,23 +7,39 @@ var config      = require('../config/database');
 var User        = require('../models/user');    // import data models user
 var Equipe        = require('../models/equipe');    // import data models user
 
+var response = { hasErrors: false, data: {}, message: ""};
+
 /* GET listing equipes swith params */
 router.get('/', function(req, res, next) {
     Equipe.find(req.query,'',function(err,equipes){
         if (err)
-            res.status(404).send(err);
+        {
+            response.hasErrors = true;
+            response.message = err; 
+            res.status(404).send(response);
+        }
         else
-            res.send(equipes);
+        {
+            response.data = equipes;
+            res.send(response);
+        }
     });
 });
 
 /* GET equipe by id */
 router.get('/:_id', function(req, res, next) {
-    Equipe.find({_id: req.params._id},'',function(err,equipes){
+    Equipe.findOne({_id: req.params._id},'',function(err,equipe){
         if (err)
-            res.status(404).send(err);
+        {
+            response.hasErrors = true;
+            response.message = err; 
+            res.status(404).send(response);
+        }
         else
-            res.send(equipes[0]);
+        {
+            response.data = equipe;
+            res.send(response);
+        }
     });
 });
 
@@ -32,10 +48,18 @@ router.post('/', function(req, res, next) {
     var newEquipe = new Equipe(req.body);
     newEquipe.save(function(err,data){
         if (err)
-            res.status(400).send(err);
+        {
+            response.hasErrors = true;
+            response.message = err; 
+            res.status(400).send(response);
+        }
         else
+        {
+            response.data = data;
             res.location(`/equipes/${data._id}`);
-        res.status(201).send(data);
+            res.status(201).send(response);
+        }
+        
     });
 });
 
@@ -43,9 +67,16 @@ router.post('/', function(req, res, next) {
 router.patch('/:_id', function(req, res, next) {
     Equipe.update({_id: req.params._id},req.body,{multi: false},function(err,data){
         if (err)
-            res.status(400).send(err);
+        {
+            response.hasErrors = true;
+            response.message = err; 
+            res.status(404).send(response);
+        }
         else
-            res.send(data);
+        {
+            response.data = data;
+            res.send(response);
+        }
     });
 });
 
@@ -53,9 +84,13 @@ router.patch('/:_id', function(req, res, next) {
 router.delete('/:_id', function(req, res, next) {
     Equipe.remove({_id: req.params._id},function(err){
         if (err)
-            res.status(404).send(err);
+        {
+            response.hasErrors = true;
+            response.message = err; 
+            res.status(404).send(response);
+        }
         else
-            res.status(204).send();
+            res.status(204).send(response);
     });
 });
 
