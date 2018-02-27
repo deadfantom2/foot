@@ -117,12 +117,7 @@ router.patch('/:_id', function(req, res, next) {
               else
               {
                 users.forEach(user => {
-                  if(!user.syncPoints())
-                  {
-                    response.hasErrors = true;
-                    response.message = "Synchro des points utlisateurs échouée"; 
-                    res.status(400).send(response);
-                  }
+                  user.syncPoints();
                 });
               }
             });
