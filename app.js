@@ -51,12 +51,12 @@ app.use(cors());
 
 /*------------Declaration Routes Avec Path definit une fois-------------------*/
 
-app.use('/auth/',   require('./routes/authRoutes'));
-app.use('/utilisateurs/',   require('./routes/utilisateursRoutes'));
-app.use('/equipes/',   require('./routes/equipesRoutes'));
-app.use('/matchs/',   require('./routes/matchsRoutes'));
-app.use('/pronos/',   require('./routes/pronosRoutes'));
-app.use('/buteurs/',   require('./routes/buteurRoutes'));
+app.use('/auth/',                                                               require('./routes/authRoutes'));  // passport.authenticate('jwt', { session: false })    sur  GET Logout
+app.use('/utilisateurs/',   passport.authenticate('jwt', { session: false }),   require('./routes/utilisateursRoutes'));
+app.use('/equipes/',        passport.authenticate('jwt', { session: false }),   require('./routes/equipesRoutes'));
+app.use('/matchs/',         passport.authenticate('jwt', { session: false }),   require('./routes/matchsRoutes'));
+app.use('/pronos/',         passport.authenticate('jwt', { session: false }),   require('./routes/pronosRoutes'));
+app.use('/buteurs/',        passport.authenticate('jwt', { session: false }),   require('./routes/buteurRoutes'));
 
 // Pour charger toutes les 'vues.pug' dans le dossier 'views'
 app.set('views',path.join(__dirname, 'public'));

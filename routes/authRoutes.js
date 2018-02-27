@@ -75,7 +75,7 @@ router.post('/login', function(req, res) {
 });
 
 // log out
-router.get('/logout', function(req, res){
+router.get('/logout', passport.authenticate('jwt', { session: false }), function(req, res){
     var response = { hasErrors: false, data: {}, message: ""};
     req.logOut();
     res.status(200).send(response);

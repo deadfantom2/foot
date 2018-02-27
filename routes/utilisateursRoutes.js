@@ -26,7 +26,7 @@ router.get('/', function(req, res, next) {
 
 
 // Utilisateur met à jour son profile
-router.put('/:id', passport.authenticate('jwt', { session: false }), function(req, res) {
+router.put('/:id', function(req, res) {
     var response = { hasErrors: false, data: {}, message: ""};
     User.findByIdAndUpdate({_id: req.params.id}, req.body).then(function () {   // met à jour les idintifiants selon son id
         // Rechercher utilisateur après inscription pour finir la requete
@@ -38,7 +38,7 @@ router.put('/:id', passport.authenticate('jwt', { session: false }), function(re
 });
 
 // Supprimer utilisateur dans la DB
-router.delete('/:id', passport.authenticate('jwt', { session: false }), function(req, res) {
+router.delete('/:id', function(req, res) {
     var response = { hasErrors: false, data: {}, message: ""};
     User.findByIdAndRemove({_id: req.params.id}).then(function (user) {         // On passe dans la requete id d'utilisateur pour supprimmer son compte
         response.data = user;

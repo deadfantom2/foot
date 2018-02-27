@@ -3,7 +3,7 @@ var Schema      = mongoose.Schema;
 
 // Buteur Schema
 var ButeurSchema = mongoose.Schema({
-    nom:       { type: String, required: true, index: { unique: true } },
+    nom:       { type: String, required: true, index: { unique: true } }
 });
 
 

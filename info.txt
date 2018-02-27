@@ -3,5 +3,5 @@ git init
 git add README.md
 git add .
 git commit -m "first commit"
-git remote add origin https://github.com/deadfantom2/reservation.git
+git remote add origin https://github.com/deadfantom2/foot.git
 git push -u origin master

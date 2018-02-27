@@ -12,7 +12,8 @@ var UserSchema = mongoose.Schema({
     points:    { type: Number, default: 0 },
     choix_equipe_id : { type: Schema.Types.ObjectId, ref: 'equipes'},
     choix_buteur_id : { type: Schema.Types.ObjectId, ref: 'buteurs'},
-    groupe : {type: Array}
+    groupe : {type: Array},
+    isAdmin: { type: Boolean, default: false }
 });
 
 
