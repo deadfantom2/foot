@@ -30,7 +30,7 @@ router.get('/', function(req, res, next) {
 /* GET prono by id */
 router.get('/:_id', function(req, res, next) {
   var response = { hasErrors: false, data: {}, message: ""};
-    Prono.findOne({_id: req.params._id},'',function(err,prono){
+    Prono.findOne(req.query).populate('match_id').populate('utilisateur_id').exec(function(err,prono){
       if (err)
       {
         response.hasErrors = true;
