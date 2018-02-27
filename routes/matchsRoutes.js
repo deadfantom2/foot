@@ -8,11 +8,9 @@ var Match        = require('../models/match');    // import data models match
 var User        = require('../models/user');    // import data models user
 var Prono        = require('../models/prono');    // import data models prono
 
-var response = { hasErrors: false, data: {}, message: ""};
-
 /* GET listing matchs swith params */
 router.get('/', function(req, res, next) {
-
+  var response = { hasErrors: false, data: {}, message: ""};
     Match.find(req.query).populate('equipe1_id').populate('equipe2_id').exec(function(err,matchs){
         if (err)
         {
@@ -31,6 +29,7 @@ router.get('/', function(req, res, next) {
 
 /* GET match by id */
 router.get('/:_id', function(req, res, next) {
+  var response = { hasErrors: false, data: {}, message: ""};
     Match.findOne({_id: req.params._id},'',function(err,match){
       if (err)
       {
@@ -48,6 +47,7 @@ router.get('/:_id', function(req, res, next) {
   
 /* POST new match*/
 router.post('/', function(req, res, next) {
+    var response = { hasErrors: false, data: {}, message: ""};
     var newMatch = new Match(req.body);
     newMatch.save(function(err,data){
       if (err)
@@ -67,6 +67,7 @@ router.post('/', function(req, res, next) {
   
 /* PATCH match by id */
 router.patch('/:_id', function(req, res, next) {
+  var response = { hasErrors: false, data: {}, message: ""};
   Match.update({_id: req.params._id},req.body,{multi: false},function(err,data){
     if (err)
     {
@@ -136,6 +137,7 @@ router.patch('/:_id', function(req, res, next) {
   
 /* DELETE match by id */
 router.delete('/:_id', function(req, res, next) {
+    var response = { hasErrors: false, data: {}, message: ""};
     Match.remove({_id: req.params._id},function(err){
       if (err)
       {

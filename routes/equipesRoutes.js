@@ -7,10 +7,10 @@ var config      = require('../config/database');
 var User        = require('../models/user');    // import data models user
 var Equipe        = require('../models/equipe');    // import data models user
 
-var response = { hasErrors: false, data: {}, message: ""};
 
 /* GET listing equipes swith params */
 router.get('/', function(req, res, next) {
+    var response = { hasErrors: false, data: {}, message: ""};
     Equipe.find(req.query,'',function(err,equipes){
         if (err)
         {
@@ -28,6 +28,7 @@ router.get('/', function(req, res, next) {
 
 /* GET equipe by id */
 router.get('/:_id', function(req, res, next) {
+    var response = { hasErrors: false, data: {}, message: ""};
     Equipe.findOne({_id: req.params._id},'',function(err,equipe){
         if (err)
         {
@@ -45,6 +46,7 @@ router.get('/:_id', function(req, res, next) {
 
 /* POST new equipe*/
 router.post('/', function(req, res, next) {
+    var response = { hasErrors: false, data: {}, message: ""};
     var newEquipe = new Equipe(req.body);
     newEquipe.save(function(err,data){
         if (err)
@@ -65,6 +67,7 @@ router.post('/', function(req, res, next) {
 
 /* PATCH equipe by id */
 router.patch('/:_id', function(req, res, next) {
+    var response = { hasErrors: false, data: {}, message: ""};
     Equipe.update({_id: req.params._id},req.body,{multi: false},function(err,data){
         if (err)
         {
@@ -82,6 +85,7 @@ router.patch('/:_id', function(req, res, next) {
 
 /* DELETE equipe by id */
 router.delete('/:_id', function(req, res, next) {
+    var response = { hasErrors: false, data: {}, message: ""};
     Equipe.remove({_id: req.params._id},function(err){
         if (err)
         {

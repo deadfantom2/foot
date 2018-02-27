@@ -7,10 +7,9 @@ var config      = require('../config/database');
 var User        = require('../models/user');    // import data models user
 var Buteur        = require('../models/buteur');    // import data models user
 
-var response = { hasErrors: false, data: {}, message: ""};
-
 /* GET listing buteurs swith params */
 router.get('/', function(req, res, next) {
+    var response = { hasErrors: false, data: {}, message: ""};
     Buteur.find(req.query,function(err,buteurs){
         if (err)
         {
@@ -28,6 +27,7 @@ router.get('/', function(req, res, next) {
 
 /* GET buteur by id */
 router.get('/:_id', function(req, res, next) {
+    var response = { hasErrors: false, data: {}, message: ""};
     Buteur.findOne({_id: req.params._id},'',function(err,buteur){
         if (err)
         {
@@ -45,6 +45,7 @@ router.get('/:_id', function(req, res, next) {
 
 /* POST new buteur*/
 router.post('/', function(req, res, next) {
+    var response = { hasErrors: false, data: {}, message: ""};
     var newButeur = new Buteur(req.body);
     newButeur.save(function(err,data){
         if (err)
@@ -64,6 +65,7 @@ router.post('/', function(req, res, next) {
 
 /* PATCH buteur by id */
 router.patch('/:_id', function(req, res, next) {
+    var response = { hasErrors: false, data: {}, message: ""};
     Buteur.update({_id: req.params._id},req.body,{multi: false},function(err,data){
         if (err)
         {
@@ -81,6 +83,7 @@ router.patch('/:_id', function(req, res, next) {
 
 /* DELETE buteur by id */
 router.delete('/:_id', function(req, res, next) {
+    var response = { hasErrors: false, data: {}, message: ""};
     Buteur.remove({_id: req.params._id},function(err){
         if (err)
         {

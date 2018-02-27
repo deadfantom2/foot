@@ -10,10 +10,9 @@ const crypto        = bluebird.promisifyAll(require('crypto'));
 var config      = require('../config/database');
 var User        = require('../models/user');    // import data models user
 
-var response = { hasErrors: false, data: {}, message: ""};
-
 //test route
 router.get('/loggedin', passport.authenticate('jwt', { session: false }), function(req, res) {
+    var response = { hasErrors: false, data: {}, message: ""};
     response.message = 'It worked! User id is: ' + req.user._id + '.' + req.user.email;
     res.send(response);
 });
@@ -22,6 +21,7 @@ router.get('/loggedin', passport.authenticate('jwt', { session: false }), functi
 
 // Création du compte Utilisateur
 router.post('/register', function(req, res) {
+    var response = { hasErrors: false, data: {}, message: ""};
     var newUser = new User();
     newUser.nom = req.body.nom;
     newUser.prenom = req.body.prenom;
@@ -46,6 +46,7 @@ router.post('/register', function(req, res) {
 
 // Route pour s'authentifier
 router.post('/login', function(req, res) {
+    var response = { hasErrors: false, data: {}, message: ""};
     User.findOne({ email: req.body.email }, function(err, user) {
         if (err) throw err;
 
@@ -75,6 +76,7 @@ router.post('/login', function(req, res) {
 
 // log out
 router.get('/logout', function(req, res){
+    var response = { hasErrors: false, data: {}, message: ""};
     req.logOut();
     res.status(200).send(response);
 });
