@@ -61,6 +61,7 @@ router.post('/login', function(req, res) {
                     // Create token if the password matched and no error was thrown
                     var token = jwt.sign(user, config.secret, {expiresIn: 9000 }); // 15 minutes
                     response.data.token = 'JWT ' + token;
+                    response.data.user = user;
                     res.json(response);
                 } else {
                     response.hasErrors = true;
