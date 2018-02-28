@@ -30,7 +30,9 @@ var User        = require('./models/user');
 var Equipe      = require('./models/equipe');
 var Match       = require('./models/match');
 var Prono       = require('./models/prono');
-var Buteur       = require('./models/buteur');
+var Buteur      = require('./models/buteur');
+var Boost       = require('./models/boost');
+var AchatBoost  = require('./models/achatBoost');
 
 app.use(function(request, response, next) {
     response.header("Access-Control-Allow-Origin", "*");
