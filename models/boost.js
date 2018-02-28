@@ -3,10 +3,11 @@ var Schema      = mongoose.Schema;
 
 // Boost Schema
 var BoostSchema = mongoose.Schema({
-    nom:       { type: String, required: true},
-    description : { type: String, required: true},
-    prix : {type: number, required: true},
-    image:    { type: String, required: true }
+    nom:            { type: String, required: true },
+    description :   { type: String },
+    prix :          { type: Number, required: true },
+    image:          { type: String },
+    type:           { type: Number, required: true, index: { unique: true } }
 });
 
 
