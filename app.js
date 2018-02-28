@@ -41,7 +41,7 @@ app.use(function(request, response, next) {
 });
 
 app.options('/*', function (request, response, next) {
-    response.header("Access-Control-Allow-Methods", "GET, PUT, POST, DELETE, OPTIONS");
+    response.header("Access-Control-Allow-Methods", "GET, PUT, PATCH, POST, DELETE, OPTIONS");
     response.send();
 });
 
