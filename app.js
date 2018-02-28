@@ -60,6 +60,7 @@ app.use(cors());
 // app.use('/pronos/',         passport.authenticate('jwt', { session: false }),   require('./routes/pronosRoutes'));
 // app.use('/buteurs/',        passport.authenticate('jwt', { session: false }),   require('./routes/buteurRoutes'));
 
+app.use('/auth/',                                                               require('./routes/authRoutes'));
 app.use('/utilisateurs/',    require('./routes/utilisateursRoutes'));
 app.use('/equipes/',         require('./routes/equipesRoutes'));
 app.use('/matchs/',          require('./routes/matchsRoutes'));
