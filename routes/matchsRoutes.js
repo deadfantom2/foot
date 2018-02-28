@@ -31,20 +31,20 @@ router.get('/', function(req, res, next) {
 /* GET match by id */
 router.get('/:_id', function(req, res, next) {
     var response = { hasErrors: false, data: {}, message: ""};
-    Match.findOne({_id: req.params._id},'',function(err,match){
-      if (err)
-      {
-        response.hasErrors = true;
-        response.message = err; 
-        res.status(404).send(response);
-      }
-      else
-      {
-        response.data = match;
-        res.send(response);
-      }
+    Match.findOne({_id: req.params._id}).populate('equipe1_id').populate('equipe2_id').exec(function(err,match){
+        if (err)
+        {
+            response.hasErrors = true;
+            response.message = err;
+            res.status(404).send(response);
+        }
+        else
+        {
+            response.data = match;
+            res.send(response);
+        }
     });
-  });
+});
   
 /* POST new match*/
 router.post('/', function(req, res, next) {
