@@ -64,7 +64,9 @@ app.use('/utilisateurs/',    require('./routes/utilisateursRoutes'));
 app.use('/equipes/',         require('./routes/equipesRoutes'));
 app.use('/matchs/',          require('./routes/matchsRoutes'));
 app.use('/pronos/',          require('./routes/pronosRoutes'));
-app.use('/buteurs/',         require('./routes/buteurRoutes'));
+app.use('/buteurs/',         require('./routes/buteursRoutes'));
+app.use('/boosts/',          require('./routes/boostsRoutes'));
+app.use('/achatBoosts/',     require('./routes/achatBoostsRoutes'));
 
 // Pour charger toutes les 'vues.pug' dans le dossier 'views'
 app.set('views',path.join(__dirname, 'public'));
