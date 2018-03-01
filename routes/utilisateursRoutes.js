@@ -9,7 +9,7 @@ var User        = require('../models/user');    // import data models user
 /* GET listing utilisateurs par son classement descandant*/
 router.get('/', function(req, res, next) {
     var response = { hasErrors: false, data: {}, message: ""};
-    User.find(req.query,function(err,users){ }).sort([['points', 'desc']]).exec(function(err, data){
+    User.find(req.query,function(err,users){ }).sort([['points', 'desc']]).populate('choix_buteur_id').populate('choix_equipe_id').exec(function(err, data){
         if (err)
         {
             response.hasErrors = true;

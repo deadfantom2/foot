@@ -49,7 +49,7 @@ router.post('/register', function(req, res) {
 // Route pour s'authentifier
 router.post('/login', function(req, res) {
     var response = { hasErrors: false, data: {}, message: ""};
-    User.findOne({ email: req.body.email }, function(err, user) {
+    User.findOne({ email: req.body.email }).populate('choix_buteur_id').populate('choix_equipe_id').exec(function(err,user){
         if (err) throw err;
 
         if (!user) {
