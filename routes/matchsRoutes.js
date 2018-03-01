@@ -12,7 +12,7 @@ var Prono        = require('../models/prono');    // import data models prono
 /* GET listing matchs swith params */
 router.get('/', function(req, res, next) {
     var response = { hasErrors: false, data: {}, message: ""};
-    Match.find(req.query).populate('equipe1_id').populate('equipe2_id').exec(function(err,matchs){
+    Match.find(req.query).sort({date:1}).populate('equipe1_id').populate('equipe2_id').exec(function(err,matchs){
         if (err)
         {
           response.hasErrors = true;
