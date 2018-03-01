@@ -33,12 +33,14 @@ router.post('/register', function(req, res) {
             console.log("err" + JSON.stringify(err));
             response.hasErrors = true;
             response.message = err; 
-            res.status(400).send(response);
+            res.status = 400;
+            res.send(response);
         }
         else{
             response.data = data;
             response.message = "User created!";
-            res.status(201).send(response);
+            res.status = 201;
+            res.send(response);
         }
     });
 });
@@ -53,7 +55,8 @@ router.post('/login', function(req, res) {
         if (!user) {
             response.hasErrors = true;
             response.message = 'Authentication failed. User not found.'; 
-            res.status(404).send(response);
+            res.status = 404;
+            res.send(response);
         } else {
             // Check if password matches
             user.comparePassword(req.body.password, function(err, isMatch) {
@@ -66,7 +69,8 @@ router.post('/login', function(req, res) {
                 } else {
                     response.hasErrors = true;
                     response.message = 'Authentication failed. Passwords did not match.'; 
-                    res.status(400).send(response);
+                    res.status = 400;
+                    res.send(response);
                 }
 
             });
@@ -79,7 +83,8 @@ router.post('/login', function(req, res) {
 router.get('/logout', passport.authenticate('jwt', { session: false }), function(req, res){
     var response = { hasErrors: false, data: {}, message: ""};
     req.logOut();
-    res.status(200).send(response);
+    res.status = 200;
+    res.send(response);
 });
 
 
