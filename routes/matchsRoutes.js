@@ -12,58 +12,38 @@ var Prono        = require('../models/prono');    // import data models prono
 /* GET listing matchs swith params */
 router.get('/', function(req, res, next) {
     var response = { hasErrors: false, data: {}, message: ""};
-    if(req.user.isAdmin == true)
-    {
-        Match.find(req.query).sort({date:1}).populate('equipe1_id').populate('equipe2_id').exec(function(err,matchs){
-            if (err)
-            {
-                response.hasErrors = true;
-                response.message = err;
-                res.status(404).send(response);
-            }
-            else
-            {
-                response.data = matchs;
-                res.send(response);
-            }
-        });
-    }
-    else
-    {
-        response.hasErrors = true;
-        response.message = "Not Admin";
-        res.status = 401;
-        res.send(response);
-    }
+    Match.find(req.query).sort({date:1}).populate('equipe1_id').populate('equipe2_id').exec(function(err,matchs){
+        if (err)
+        {
+            response.hasErrors = true;
+            response.message = err;
+            res.status(404).send(response);
+        }
+        else
+        {
+            response.data = matchs;
+            res.send(response);
+        }
+    });
 });
 
 
 /* GET match by id */
 router.get('/:_id', function(req, res, next) {
     var response = { hasErrors: false, data: {}, message: ""};
-    if(req.user.isAdmin == true)
-    {
-        Match.findOne({_id: req.params._id}).populate('equipe1_id').populate('equipe2_id').populate('phase_id').exec(function(err,match){
-            if (err)
-            {
-                response.hasErrors = true;
-                response.message = err;
-                res.status(404).send(response);
-            }
-            else
-            {
-                response.data = match;
-                res.send(response);
-            }
-        });
-    }
-    else
-    {
-        response.hasErrors = true;
-        response.message = "Not Admin";
-        res.status = 401;
-        res.send(response);
-    }
+    Match.findOne({_id: req.params._id}).populate('equipe1_id').populate('equipe2_id').populate('phase_id').exec(function(err,match){
+        if (err)
+        {
+            response.hasErrors = true;
+            response.message = err;
+            res.status(404).send(response);
+        }
+        else
+        {
+            response.data = match;
+            res.send(response);
+        }
+    });
 });
 
 /* POST new match*/
