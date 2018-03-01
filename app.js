@@ -34,7 +34,7 @@ var Prono       = require('./models/prono');
 var Buteur      = require('./models/buteur');
 var Boost       = require('./models/boost');
 var AchatBoost  = require('./models/achatBoost');
-var Phase  = require('./models/phase');
+var Phase       = require('./models/phase');
 
 
 app.use(function(request, response, next) {
@@ -56,22 +56,26 @@ app.use(cors());
 
 /*------------Declaration Routes Avec Path definit une fois-------------------*/
 
-// app.use('/auth/',                                                               require('./routes/authRoutes'));  // passport.authenticate('jwt', { session: false })    sur  GET Logout
-// app.use('/utilisateurs/',   passport.authenticate('jwt', { session: false }),   require('./routes/utilisateursRoutes'));
-// app.use('/equipes/',        passport.authenticate('jwt', { session: false }),   require('./routes/equipesRoutes'));
-// app.use('/matchs/',         passport.authenticate('jwt', { session: false }),   require('./routes/matchsRoutes'));
-// app.use('/pronos/',         passport.authenticate('jwt', { session: false }),   require('./routes/pronosRoutes'));
-// app.use('/buteurs/',        passport.authenticate('jwt', { session: false }),   require('./routes/buteurRoutes'));
+app.use('/auth/',                                                                require('./routes/authRoutes'));  // passport.authenticate('jwt', { session: false })    sur  GET Logout
+app.use('/utilisateurs/',   passport.authenticate('jwt', { session: false }),    require('./routes/utilisateursRoutes'));
+app.use('/equipes/',        passport.authenticate('jwt', { session: false }),    require('./routes/equipesRoutes'));
+app.use('/matchs/',         passport.authenticate('jwt', { session: false }),    require('./routes/matchsRoutes'));
+app.use('/pronos/',         passport.authenticate('jwt', { session: false }),    require('./routes/pronosRoutes'));
+app.use('/buteurs/',        passport.authenticate('jwt', { session: false }),    require('./routes/buteursRoutes'));
+app.use('/boosts/',         passport.authenticate('jwt', { session: false }),    require('./routes/boostsRoutes'));
+app.use('/phases/',         passport.authenticate('jwt', { session: false }),    require('./routes/phasesRoutes'));
+app.use('/achatBoosts/',    passport.authenticate('jwt', { session: false }),    require('./routes/achatBoostsRoutes'));
 
-app.use('/auth/',                                                               require('./routes/authRoutes'));
-app.use('/utilisateurs/',    require('./routes/utilisateursRoutes'));
-app.use('/equipes/',         require('./routes/equipesRoutes'));
-app.use('/matchs/',          require('./routes/matchsRoutes'));
-app.use('/pronos/',          require('./routes/pronosRoutes'));
-app.use('/buteurs/',         require('./routes/buteursRoutes'));
-app.use('/boosts/',          require('./routes/boostsRoutes'));
-app.use('/phases/',          require('./routes/phasesRoutes'));
-app.use('/achatBoosts/',     require('./routes/achatBoostsRoutes'));
+
+// app.use('/auth/',                                                               require('./routes/authRoutes'));
+// app.use('/utilisateurs/',    require('./routes/utilisateursRoutes'));
+// app.use('/equipes/',         require('./routes/equipesRoutes'));
+// app.use('/matchs/',          require('./routes/matchsRoutes'));
+// app.use('/pronos/',          require('./routes/pronosRoutes'));
+// app.use('/buteurs/',         require('./routes/buteursRoutes'));
+// app.use('/boosts/',          require('./routes/boostsRoutes'));
+// app.use('/phases/',          require('./routes/phasesRoutes'));
+// app.use('/achatBoosts/',     require('./routes/achatBoostsRoutes'));
 
 
 // Pour charger toutes les 'vues.pug' dans le dossier 'views'
