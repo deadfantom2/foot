@@ -47,7 +47,7 @@ router.get('/:_id', function(req, res, next) {
 });
 
 /* POST new match*/
-router.post('/', function(req, res, next) {
+router.post('/', passport.authenticate('jwt', { session: false }), function(req, res, next) {
     var response = { hasErrors: false, data: {}, message: ""};
     var newMatch = new Match(req.body);
     if(req.user.isAdmin == true)
@@ -77,7 +77,7 @@ router.post('/', function(req, res, next) {
 });
 
 /* PATCH match by id */
-router.patch('/:_id', function(req, res, next) {
+router.patch('/:_id', passport.authenticate('jwt', { session: false }), function(req, res, next) {
     var response = { hasErrors: false, data: {}, message: ""};
     if(req.user.isAdmin == true)
     {
@@ -152,7 +152,7 @@ router.patch('/:_id', function(req, res, next) {
 });
 
 /* DELETE match by id */
-router.delete('/:_id', function(req, res, next) {
+router.delete('/:_id', passport.authenticate('jwt', { session: false }), function(req, res, next) {
     var response = { hasErrors: false, data: {}, message: ""};
     if(req.user.isAdmin == true)
     {

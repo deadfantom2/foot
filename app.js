@@ -59,7 +59,7 @@ app.use(cors());
 app.use('/auth/',                                                                require('./routes/authRoutes'));  // passport.authenticate('jwt', { session: false })    sur  GET Logout
 app.use('/utilisateurs/',   passport.authenticate('jwt', { session: false }),    require('./routes/utilisateursRoutes'));
 app.use('/equipes/',        passport.authenticate('jwt', { session: false }),    require('./routes/equipesRoutes'));
-app.use('/matchs/',         passport.authenticate('jwt', { session: false }),    require('./routes/matchsRoutes'));
+app.use('/matchs/',                                                              require('./routes/matchsRoutes'));
 app.use('/pronos/',         passport.authenticate('jwt', { session: false }),    require('./routes/pronosRoutes'));
 app.use('/buteurs/',        passport.authenticate('jwt', { session: false }),    require('./routes/buteursRoutes'));
 app.use('/boosts/',         passport.authenticate('jwt', { session: false }),    require('./routes/boostsRoutes'));
