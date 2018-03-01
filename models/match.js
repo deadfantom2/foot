@@ -8,7 +8,10 @@ var MatchSchema = mongoose.Schema({
     equipe2_id:     { type: Schema.Types.ObjectId, ref: 'equipes', required: true },
     goals1:         { type: Number }, //Laisser ce champs vide si le match n'est pas passé ou bien ne pas le renseigner
     goals2:         { type: Number }, //Laisser ce champs vide si le match n'est pas passé ou bien ne pas le renseigner
-    date:           { type: Date, required: true }
+    date:           { type: Date, required: true },
+    phase_id:     { type: Schema.Types.ObjectId, ref: 'phases', required: true }
+
+
 });
 
 

@@ -29,10 +29,13 @@ var app = express();
 var User        = require('./models/user');
 var Equipe      = require('./models/equipe');
 var Match       = require('./models/match');
+var Phase       = require('./models/phase');
 var Prono       = require('./models/prono');
 var Buteur      = require('./models/buteur');
 var Boost       = require('./models/boost');
 var AchatBoost  = require('./models/achatBoost');
+var Phase  = require('./models/phase');
+
 
 app.use(function(request, response, next) {
     response.header("Access-Control-Allow-Origin", "*");
@@ -67,7 +70,9 @@ app.use('/matchs/',          require('./routes/matchsRoutes'));
 app.use('/pronos/',          require('./routes/pronosRoutes'));
 app.use('/buteurs/',         require('./routes/buteursRoutes'));
 app.use('/boosts/',          require('./routes/boostsRoutes'));
+app.use('/phases/',          require('./routes/phasesRoutes'));
 app.use('/achatBoosts/',     require('./routes/achatBoostsRoutes'));
+
 
 // Pour charger toutes les 'vues.pug' dans le dossier 'views'
 app.set('views',path.join(__dirname, 'public'));
