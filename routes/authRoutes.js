@@ -27,6 +27,8 @@ router.post('/register', function(req, res) {
     newUser.prenom = req.body.prenom;
     newUser.email = req.body.email;
     newUser.password = req.body.password;
+    newUser.choix_buteur_id = req.body.choix_buteur_id;
+    newUSer.choix_equipe_id = req.body.choix_equipe_id;
 
     newUser.save(function(err, data) {
         if (err) {
